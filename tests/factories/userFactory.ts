@@ -1,14 +1,25 @@
 import { getRepository } from "typeorm";
+import faker from "faker";
 
 import User from "../../src/entities/User";
 
-export async function createUser () {
-  const user = await getRepository(User).create({
-    email: "email@email.com",
-    password: "123456"
-  });
+interface BodyParams {
+    email: string;
+    password: string;
+}
 
-  await getRepository(User).save(user);
+export function userBody() {
+    const body = {
+        email: faker.internet.email(),
+        password: faker.internet.password(),
+    };
+    return body;
+}
 
-  return user;
+export async function createUser(body: BodyParams) {
+    const user = await getRepository(User).create(body);
+
+    const result = await getRepository(User).save(user);
+
+    return result;
 }

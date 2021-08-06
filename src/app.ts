@@ -3,6 +3,7 @@ import "./setup";
 import express from "express";
 import cors from "cors";
 import "reflect-metadata";
+import { Request, Response, NextFunction } from "express";
 
 import connectDatabase from "./database";
 
@@ -12,10 +13,15 @@ const app = express();
 app.use(cors());
 app.use(express.json());
 
-app.get("/users", userController.getUsers);
+app.post("/sign-up", userController.signUp);
 
-export async function init () {
-  await connectDatabase();
+app.use((err: any, req: Request, res: Response, next: NextFunction) => {
+    console.log(err);
+    return res.sendStatus(500);
+});
+
+export async function init() {
+    await connectDatabase();
 }
 
 export default app;
