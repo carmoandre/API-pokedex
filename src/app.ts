@@ -14,6 +14,7 @@ app.use(cors());
 app.use(express.json());
 
 app.post("/sign-up", userController.signUp);
+app.post("/sign-in", userController.signIn);
 
 app.use((err: any, req: Request, res: Response, next: NextFunction) => {
     console.log(err);

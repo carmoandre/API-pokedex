@@ -72,38 +72,18 @@ describe("POST /sign-in", () => {
     it("should answer with status 401 for wrong email param", async () => {
         const body = userBody();
         await createUser(body);
-        body.email = "whatever";
+        body.email = "whatever@whatever.com";
 
         const response = await supertest(app).post("/sign-in").send(body);
-        expect(response.status).toBe(400);
+        expect(response.status).toBe(401);
     });
 
     it("should answer with status 401 for wrong password param", async () => {
         const body = userBody();
-        await createUser(body);
+        const result = await createUser(body);
         body.password = "whatever";
 
         const response = await supertest(app).post("/sign-in").send(body);
-        expect(response.status).toBe(400);
+        expect(response.status).toBe(401);
     });
 });
-
-/*
-describe("GET /users", () => {
-  it("should answer with text \"OK!\" and status 200", async () => {
-    const user = await createUser();
-
-    const response = await supertest(app).get("/users");
-    
-    expect(response.body).toEqual(
-      expect.arrayContaining([
-        expect.objectContaining({
-          email: user.email
-        })
-      ])
-    );
-
-    expect(response.status).toBe(200);
-  });
-});
-*/

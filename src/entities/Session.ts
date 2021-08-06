@@ -7,7 +7,7 @@ export default class Session {
     id: number;
 
     @Column()
-    userId: string;
+    userId: number;
 
     @Column()
     token: string;
