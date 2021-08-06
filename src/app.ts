@@ -21,6 +21,17 @@ app.post("/sign-in", userController.signIn);
 
 app.get("/pokemons", authMiddleware, pokemonController.getPokemons);
 
+app.post(
+    "/my-pokemons/:id/add",
+    authMiddleware,
+    pokemonController.alterCatchedPokemonStatus
+);
+app.post(
+    "/my-pokemons/:id/remove",
+    authMiddleware,
+    pokemonController.alterCatchedPokemonStatus
+);
+
 app.use((err: any, req: Request, res: Response, next: NextFunction) => {
     console.log(err);
     return res.sendStatus(500);

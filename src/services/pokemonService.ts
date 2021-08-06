@@ -1,6 +1,7 @@
 import { getRepository } from "typeorm";
 import Pokemon from "../entities/Pokemon";
 import User from "../entities/User";
+import UserPokemons from "../entities/UserPokemons";
 
 interface UserPokemonsIds {
     [key: number]: boolean;
@@ -43,4 +44,18 @@ export async function getPokemons(userId: number) {
         });
 
     return pokemonsWithNewAttribute;
+}
+
+export async function alterCatchedPokemonStatus(
+    userId: number,
+    pokemonId: number,
+    addOrRemove: string
+) {
+    const repository = getRepository(UserPokemons);
+
+    if (addOrRemove === "add") {
+        await repository.insert({ userId, pokemonId });
+    } else {
+        await repository.delete({ userId, pokemonId });
+    }
 }
