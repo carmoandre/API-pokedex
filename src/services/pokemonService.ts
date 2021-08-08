@@ -16,7 +16,7 @@ interface PokemonWithNewAttribute {
     height: number;
     baseExp: number;
     description: string;
-    isMyPokemons: boolean;
+    inMyPokemons: boolean;
 }
 
 export async function getPokemons(userId: number) {
@@ -39,7 +39,7 @@ export async function getPokemons(userId: number) {
         pokemons.map((pokemon) => {
             return {
                 ...pokemon,
-                isMyPokemons: pokemonsObj[pokemon.id] ? true : false,
+                inMyPokemons: pokemonsObj[pokemon.id] ? true : false,
             };
         });
 

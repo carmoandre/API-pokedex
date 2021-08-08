@@ -32,6 +32,8 @@ app.post(
     pokemonController.alterCatchedPokemonStatus
 );
 
+app.get("/populate", pokemonController.populateDatabase);
+
 app.use((err: any, req: Request, res: Response, next: NextFunction) => {
     console.log(err);
     return res.sendStatus(500);

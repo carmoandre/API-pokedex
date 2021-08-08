@@ -9,7 +9,6 @@ export async function authMiddleware(
 ) {
     const header = req.header(`Authorization`);
     const token = header.split(`Bearer `)[1];
-
     const user = await authService.authenticate(token);
     if (!user) return res.sendStatus(401);
 

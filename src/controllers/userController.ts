@@ -19,8 +19,9 @@ export async function signIn(req: Request, res: Response) {
 
     const { email, password } = req.body as { email: string; password: string };
     const token = await userService.signIn(email, password);
+
     if (token) {
-        res.send(token);
+        res.send({ token });
     } else {
         res.sendStatus(401);
     }
